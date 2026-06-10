@@ -24,10 +24,9 @@ COPY --from=frontend-builder /app/frontend/build ./backend/static
 
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
-ENV PORT=8000
 
 # Expose port
 EXPOSE 8000
 
 # Run backend server
-CMD ["uvicorn", "backend.server:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD uvicorn backend.server:app --host 0.0.0.0 --port ${PORT:-8000}
