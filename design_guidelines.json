@@ -1,0 +1,70 @@
+{
+  "project_name": "Draw Bot Dashboard",
+  "theme": "dark",
+  "archetype": "Archetype 5 (Luxury) + Retro-Futurism Technical Edge",
+  "direction": "rtl",
+  "typography": {
+    "headings": "Cairo, Outfit, sans-serif",
+    "body": "IBM Plex Sans Arabic, Inter, sans-serif",
+    "monospace": "JetBrains Mono, Courier New, monospace"
+  },
+  "colors": {
+    "background_base": "#050A14",
+    "background_surface": "#0A101D",
+    "card_bg": "rgba(15, 23, 42, 0.4)",
+    "border_subtle": "rgba(255, 255, 255, 0.08)",
+    "primary": "#3B82F6",
+    "primary_hover": "#2563EB",
+    "accent_cyan": "#00F0FF",
+    "accent_gold": "#F59E0B",
+    "text_main": "#FFFFFF",
+    "text_muted": "#94A3B8",
+    "status_online": "#10B981",
+    "status_offline": "#EF4444",
+    "status_error": "#F59E0B"
+  },
+  "layout_strategies": {
+    "global": "RTL strictly enabled via dir='rtl'. Heavy use of generous padding (p-6, p-8) and optical alignment.",
+    "landing_page": "High visual impact bento grid, deep black/navy background with subtle blue glowing blurs. Asymmetric structures.",
+    "dashboard": "Control Room Grid (gap-4 or gap-6). Density and high-contrast functionality. Maximize viewport efficiency.",
+    "panels": "The 'Crystal' variant (Glassmorphism): backdrop-blur-xl, card_bg, and 1px border_subtle."
+  },
+  "components_design": {
+    "navigation": "Sticky, high-opacity glassmorphism. Clean CTA for 'تسجيل الدخول' (Login) via Discord.",
+    "pricing_cards": "Use 'Tracing Beam' inspired active borders for Premium/VIP plans. North Friends plan should feel exclusive/hidden (Gold accents).",
+    "console_window": "Retro-Futurism: Pure #000 background, neon cyan/green text, monospace font, 1px border-white/20.",
+    "bot_cards": "Display Bot Avatar, Name, Language Icon, and Status Indicator (pulsing dot).",
+    "resource_bars": "Thin, pill-shaped progress bars with gradients (e.g., green to red based on usage percentage)."
+  },
+  "pages_to_build": [
+    "Landing Page (Hero, Features, Pricing Plans)",
+    "Authentication (Login / Signup + Discord OAuth)",
+    "Dashboard (List of user's bots / servers)",
+    "Bot Creation Wizard (Select language, name, region)",
+    "Bot Control Panel (Tabs: Console, File Manager, Settings, Real-time Stats)"
+  ],
+  "libraries_to_install": [
+    "react-icons",
+    "framer-motion",
+    "recharts",
+    "lucide-react"
+  ],
+  "image_urls": [
+    {
+      "url": "https://images.unsplash.com/photo-1683064325134-3acfdef9c6d7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1ODR8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGRhcmslMjBuYXZ5JTIwdGVjaCUyMHRleHR1cmV8ZW58MHx8fHwxNzgwOTk5MzkyfDA&ixlib=rb-4.1.0&q=85",
+      "category": "hero_background",
+      "description": "Abstract dark blue wavy background for hero section overlay."
+    }
+  ],
+  "instructions_to_main_agent": [
+    "Ensure RTL is implemented by adding dir='rtl' to the main layout or body wrapper.",
+    "All copy MUST be in Arabic as requested by the user, maintaining a premium and professional tone.",
+    "Inject Google Fonts 'Cairo' and 'IBM Plex Sans Arabic' into index.html and configure them in Tailwind.",
+    "Build 5 distinct pricing tiers: Free, Basic (2 servers), Premium, VIP, and 'North Friends' (requires password 'North' in UI logic).",
+    "For language selection, use 'react-icons/si' (e.g., SiPython, SiJavascript, SiGo, SiCsharp, SiGnubash).",
+    "File Manager UI must feature a tree-view for directories and a code editor placeholder area.",
+    "Stats panels must use Recharts to show animated CPU/RAM usage line charts.",
+    "Customize Tailwind variables in index.css to map to the deep navy/black luxury palette.",
+    "CRITICAL: All interactive elements MUST include a 'data-testid' attribute (e.g., data-testid='start-bot-btn')."
+  ]
+}
