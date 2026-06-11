@@ -381,7 +381,9 @@ async def import_from_file():
             existing = await db.games.find_one({"title": {"$regex": f"^{re.escape(title)}$", "$options": "i"}}, {"_id": 0})
             if existing:
                 continue
-            sid = await steam_search(title, http)
+            sid = str(g.get("steam_app_id")) if g.get("steam_app_id") else None
+            if not sid:
+                sid = await steam_search(title, http)
             if not sid:
                 await asyncio.sleep(0.3)
                 continue
@@ -401,7 +403,7 @@ async def import_from_file():
                 "size": g.get("size", "—"),
                 "year": g.get("year", "—"),
                 "genres": [],
-                "source": "fitgirl",   # default — scraper will reassign
+                "source": g.get("source", "fitgirl"),
                 "torrent_url": "",
                 "status": "cracked",
                 "is_coop": False,
@@ -611,6 +613,7 @@ async def list_games(
     search: Optional[str] = None,
     only_coop: bool = False,
     only_multi: bool = False,
+    limit: int = Query(10000, description="Maximum number of games to return"),
 ):
     q: Dict[str, Any] = {}
     if status == "cracked":
@@ -628,7 +631,7 @@ async def list_games(
     if only_multi:
         q["is_multiplayer"] = True
     cursor = db.games.find(q, {"_id": 0}).sort([("is_coming_soon", 1), ("steam_score", -1), ("title", 1)])
-    return await cursor.to_list(500)
+    return await cursor.to_list(limit)
 
 @api.get("/games/stats")
 async def games_stats():

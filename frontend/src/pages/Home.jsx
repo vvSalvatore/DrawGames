@@ -24,7 +24,7 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       const [g, s, gns] = await Promise.all([
-        api.get("/games?status=cracked"),
+        api.get("/games?status=cracked&limit=2000"),
         api.get("/games/stats"),
         api.get("/games/genres"),
       ]);
