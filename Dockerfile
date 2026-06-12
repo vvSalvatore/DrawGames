@@ -1,33 +1,17 @@
-# Multi-stage build for DrawGames (Frontend + Backend)
+# Multi-stage build for DrawGames frontend only
 
-# Stage 1: Build Frontend
-FROM node:18-alpine AS frontend-builder
-WORKDIR /app/frontend
+# Stage 1: Build frontend
+FROM node:18-alpine AS builder
+WORKDIR /app
 COPY frontend/package*.json ./
 RUN npm ci --legacy-peer-deps
 COPY frontend/ ./
 RUN npm run build
 
-# Stage 2: Backend with Frontend static files
-FROM python:3.11-slim
+# Stage 2: Serve built frontend statically
+FROM node:18-alpine
 WORKDIR /app
-
-# Install backend dependencies
-COPY backend/requirements.txt ./backend/
-RUN pip install --no-cache-dir -r backend/requirements.txt
-
-# Copy backend code
-COPY backend/ ./backend/
-
-# Copy built frontend from stage 1
-COPY --from=frontend-builder /app/frontend/build ./backend/static
-
-# Set environment variables
-ENV PYTHONUNBUFFERED=1
-ENV PORT=8000
-
-# Expose port
-EXPOSE 8000
-
-# Run backend server
-CMD ["uvicorn", "backend.server:app", "--host", "0.0.0.0", "--port", "8000"]
+COPY --from=builder /app/build ./build
+RUN npm install -g serve
+EXPOSE 3000
+CMD ["sh", "-lc", "serve -s build -l ${PORT:-3000}"]
